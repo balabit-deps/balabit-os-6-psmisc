@@ -1,3 +1,9 @@
+psmisc (22.21-2.1ubuntu0.1) xenial; urgency=medium
+
+  * d/p/fix-pstree-seg-fault.patch: Fix pstree segfault (LP: #1837444)
+
+ -- Lucas Kanashiro <lucas.kanashiro@canonical.com>  Mon, 12 Aug 2019 17:44:51 -0300
+
 psmisc (22.21-2.1build1) xenial; urgency=medium
 
   * No-change rebuild for ncurses6 transition.

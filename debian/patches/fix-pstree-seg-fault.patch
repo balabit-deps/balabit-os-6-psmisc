@@ -1,0 +1,29 @@
+Description: Fix pstree segmentation fault
+ If a thread is deleted during the execution of the function get_threadname,
+ the fclose function can be called with a NULL argument, which will cause a
+ segmentation fault.
+Forwarded: not-needed
+Origin: backport, https://sourceforge.net/p/psmisc/patches/33/
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815902
+Author: Alexey Remizov <alexey@remizov.org>
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/psmisc/+bug/1837444
+Reviewed-by: Lucas Kanashiro <lucas.kanashiro@canonical.com>
+Applied-Upstream: https://sourceforge.net/p/psmisc/code/ci/265fa43ee48898001130b90d3656d48af5d241aa/
+Last-Updated: 2019-08-13
+
+diff --git a/src/pstree.c b/src/pstree.c
+index 071e6c4..4f13b31 100644
+--- a/src/pstree.c
++++ b/src/pstree.c
+@@ -816,10 +816,10 @@
+ 		return threadname;
+ 	    }
+ 	}
++	fclose(file);
+     }
+     /* Fall back to old method */
+     sprintf(threadname, "{%.*s}", COMM_LEN, comm);
+-    fclose(file);
+     return threadname;
+ }
+ 
